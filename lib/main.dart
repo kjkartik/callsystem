@@ -2,12 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -33,13 +28,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // final url = Uri.parse(
-  //     "https://api.plivo.com/v1/Account/{auth_id}/Call/{call_uuid}/Play/");
-  // void urls() async {
-  //   var body = ({'urls': "https://s3.amazonaws.com/plivocloud/Trumpet.mp3"});
-  //   http.post((url), body: body);
-  //   print(body);
-  // }
+  var body = ({});
+  // Future<http.Response>
+  postRequest() async {
+    final String url = "   IBM.Watson.DeveloperCloud.Services.TextToSpeech.v1";
+    var response = await http.post(Uri.parse(url), body: body);
+    print("${response.statusCode}");
+    print("${response.body}");
+    print("${response.reasonPhrase}");
+    return response;
+  }
+
+  void initState() {
+    super.initState();
+    postRequest();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: RaisedButton(
           onPressed: () async {
-            var body = ({"text": "Hey, How aryou?"});
-            await http.post(
-                Uri.parse(
-                    "https://api.plivo.com/v1/Account/{auth_id}/Call/{call_uuid}/Speak/"),
-                // headers: <String, String>{'Content-Type': 'application/json'},
-                body: body);
+            postRequest();
           },
         ),
       ),
